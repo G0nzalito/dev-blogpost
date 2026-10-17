@@ -1,0 +1,46 @@
+---
+/**
+ * Site header: a plain wordmark with a quick-access bar underneath.
+ *
+ * The routes that do not exist yet point at `#` rather than 404ing; swap in the
+ * real paths as the pages land.
+ */
+const links = [
+  { label: "Posts", href: "/posts" },
+  { label: "Projects", href: "/projects" },
+  { label: "Events", href: "/events" },
+  { label: "About Me", href: "/#about" },
+  { label: "Contact Me", href: "/#contact" },
+];
+
+const { pathname } = Astro.url;
+const isBuilt = (href: string) => href.startsWith("/#") || href === pathname;
+---
+
+<header class="mb-12">
+  <h1 class="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+    <a href="/" class="transition-colors hover:text-accent">Code by <span class="text-accent">Z</span></a>
+  </h1>
+
+  <nav aria-label="Quick access" class="mt-4 border-t border-line pt-3">
+    <ul class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted sm:text-base">
+      {
+        links.map((link, i) => (
+          <li class="flex items-center gap-2">
+            {i > 0 && <span aria-hidden="true" class="text-line">-</span>}
+            <a
+              href={isBuilt(link.href) ? link.href : "#"}
+              aria-disabled={isBuilt(link.href) ? undefined : "true"}
+              class:list={[
+                "transition-colors hover:text-accent",
+                isBuilt(link.href) && "text-ink",
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

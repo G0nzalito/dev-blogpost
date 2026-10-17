@@ -1,0 +1,37 @@
+---
+/**
+ * Renders a Markdown entry from the `pages` collection into a prose block.
+ * Keeping this separate from the page means the HTML never has to change when
+ * the writing does.
+ */
+import { render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  entry: CollectionEntry<"pages">;
+  heading?: boolean;
+  id?: string;
+  class?: string;
+}
+
+const { entry, heading = true, id, class: className } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<section id={id} class:list={["scroll-mt-8", className]}>
+  {
+    heading && (
+      <h2 class="mb-1 text-xs font-medium tracking-[0.2em] text-accent-dim uppercase">
+        {entry.data.title}
+      </h2>
+    )
+  }
+  {
+    entry.data.description && (
+      <p class="mb-6 text-sm text-muted">{entry.data.description}</p>
+    )
+  }
+  <div class="prose prose-post prose-invert max-w-none">
+    <Content />
+  </div>
+</section>
