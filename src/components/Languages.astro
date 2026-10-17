@@ -1,0 +1,85 @@
+---
+/**
+ * Languages grouped by how far they've been taken:
+ *   learning   — currently being picked up
+ *   acceptable — know the idiomatic ways to do things
+ *   settled    — shipped a full project in it
+ *
+ * The data lives here instead of a Markdown table so the grid can grow one
+ * entry at a time without hand-padding empty cells.
+ */
+interface Lang {
+  name: string;
+  image: string;
+}
+
+const languages: Record<"learning" | "acceptable" | "settled", Lang[]> = {
+  // Add an entry as: { name: "Go", image: "/languajeIcons/Go.webp" },
+  learning: [
+    { name: "Rust", image: "/languajeIcons/Rust.webp" },
+    { name: "Docker", image: "/languajeIcons/Docker.webp" },
+  ],
+  acceptable: [
+    { name: "Java", image: "/languajeIcons/Java.webp" },
+    { name: "Spring", image: "/languajeIcons/Spring.webp" },
+    { name: "Node", image: "/languajeIcons/Node.webp" },
+    { name: "Oracle", image: "/languajeIcons/Oracle.webp" },
+    { name: "PostgreSQL", image: "/languajeIcons/PostgreSQL.webp" },
+    { name: "React", image: "/languajeIcons/React.webp" },
+  ],
+  settled: [
+    { name: "Linux", image: "/languajeIcons/Linux.webp" },
+    { name: "TypeScript", image: "/languajeIcons/TypeScript.webp" },
+  ],
+};
+
+const columns = [
+  { key: "learning", label: "Learning" },
+  { key: "acceptable", label: "Acceptable" },
+  { key: "settled", label: "Settled" },
+] as const;
+---
+
+<section class="mt-12 scroll-mt-8">
+  <h2 class="mb-6 text-xs font-medium tracking-[0.2em] text-accent-dim uppercase">
+    Languages
+  </h2>
+
+  <div class="grid gap-6 sm:grid-cols-3">
+    {columns.map(({ key, label }) => (
+      <div>
+        <h3 class="mb-3 flex items-baseline justify-between border-b border-line pb-2 text-xs tracking-[0.15em] text-muted uppercase">
+          {label}
+          <span class="text-[0.65rem] text-accent-dim">
+            {languages[key].length}
+          </span>
+        </h3>
+
+        {languages[key].length > 0 ? (
+          <ul class="flex flex-wrap gap-3">
+            {languages[key].map((lang) => (
+              <li class="group flex w-40 flex-col items-center gap-2 rounded-lg border border-line-soft bg-raised px-2 py-3 transition hover:-translate-y-0.5 hover:border-accent/60 hover:bg-sunken">
+                <img
+                  src={lang.image}
+                  alt={lang.name}
+                  width="35"
+                  height="35"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-35 w-35 object-contain transition group-hover:scale-105"
+                />
+                <span class="max-w-full truncate text-[0.7rem] text-muted transition group-hover:text-accent">
+                  {lang.name}
+                </span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="rounded-lg border border-dashed border-line px-3 py-6 text-center text-[0.7rem] text-muted">
+            nothing here yet
+          </p>
+        )}
+      </div>
+    ))}
+  </div>
+</section>
