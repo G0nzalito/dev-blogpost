@@ -1,0 +1,68 @@
+/*
+ * LythMono Nerd Font -- the site typeface.
+ *
+ * It ships as a Nerd Font: ~18k glyphs including several full icon sets, at
+ * ~4.6 MB per face. A blog renders a fraction of that, so `subset_fonts.py`
+ * trims it to Latin + punctuation + arrows + box drawing + a slice of the icon
+ * ranges and emits WOFF2 (~365 KB per face) -- roughly 32 MB down to ~2.2 MB.
+ * Re-run `pnpm subset:fonts` after editing that script.
+ *
+ * All six cuts are real outlines, so `font-weight` and `font-style` are genuine
+ * rather than browser-synthesised. Faces are fetched lazily by the browser, so
+ * declaring all six costs nothing unless a style actually uses them.
+ */
+@font-face {
+  font-family: "Lyth Mono";
+  src: url("../fonts/LythMono-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lyth Mono";
+  src: url("../fonts/LythMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lyth Mono";
+  src: url("../fonts/LythMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lyth Mono";
+  src: url("../fonts/LythMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lyth Mono";
+  src: url("../fonts/LythMono-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lyth Mono";
+  src: url("../fonts/LythMono-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Lyth Mono";
+  src: url("../fonts/LythMono-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}

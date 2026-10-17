@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@plugin "@tailwindcss/typography";
+
+/*
+ * LythMono Nerd Font is the site typeface.
+ *
+ * It was picked over GohuFont 14 because it ships six real faces (so bold and
+ * italic are drawn, not synthesised by the browser) and carries a full
+ * programming-ligature table, where Gohu has neither.
+ *
+ * The font stack ends with the colour emoji faces because LythMono has no
+ * emoji glyphs of its own -- without them, emoji fall back to a monochrome text
+ * font instead of rendering in colour.
+ */
+:root {
+  --font-site: "Lyth Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace,
+    "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji";
+
+  --bg: #070b16;
+  --bg-raised: #0d1424;
+  --bg-sunken: #05080f;
+  --line: #1c2740;
+  --line-soft: #141d31;
+  --ink: #e6edf7;
+  --ink-muted: #8fa0bd;
+  --accent: #5cc8f2;
+  --accent-dim: #2b7fa3;
+  --warn: #e8a45c;
+}
+
+@theme {
+  --font-sans: var(--font-site);
+  --font-mono: var(--font-site);
+
+  --color-bg: var(--bg);
+  --color-raised: var(--bg-raised);
+  --color-sunken: var(--bg-sunken);
+  --color-line: var(--line);
+  --color-line-soft: var(--line-soft);
+  --color-ink: var(--ink);
+  --color-muted: var(--ink-muted);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-warn: var(--warn);
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-site);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* A subtle grid so the monospace rhythm is visible while comparing. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 0%, #000 20%, transparent 75%);
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Markdown-rendered content (the presentation, and later posts). */
+.prose-post {
+  --tw-prose-body: var(--ink-muted);
+  --tw-prose-headings: var(--ink);
+  --tw-prose-links: var(--accent);
+  --tw-prose-bold: var(--ink);
+  --tw-prose-quotes: var(--ink);
+  --tw-prose-quote-borders: var(--accent-dim);
+  --tw-prose-code: var(--ink);
+  --tw-prose-pre-bg: var(--bg-sunken);
+  --tw-prose-hr: var(--line);
+  --tw-prose-bullets: var(--accent-dim);
+  --tw-prose-counters: var(--ink-muted);
+  --tw-prose-th-borders: var(--line);
+  --tw-prose-td-borders: var(--line-soft);
+}
+
+.prose-post :where(code):not(:where([class~="not-prose"] *))::before,
+.prose-post :where(code):not(:where([class~="not-prose"] *))::after {
+  content: none;
+}
+
+.prose-post :where(code):not(:where([class~="not-prose"] *)) {
+  background: var(--bg-sunken);
+  border: 1px solid var(--line-soft);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.prose-post :where(pre) {
+  border: 1px solid var(--line-soft);
+}
+
+/* Keep emoji in colour even though both fonts lack them. */
+.emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-variant-emoji: emoji;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
